@@ -1,0 +1,53 @@
+importação itertools como ele
+importar timeit
+
+def  bucketSort ( alist ):
+    maior =  max (alist)
+    comprimento =  len (alist)
+    tamanho = maior / comprimento
+ 
+    buckets = [[] para _ no  intervalo (comprimento)]
+    para eu na  faixa (comprimento):
+        j =  int (alist [i] / tamanho)
+        se j ! = comprimento:
+            baldes [j] .append (alist [i])
+        else :
+            baldes [comprimento -  1 ] .append (alist [i])
+ 
+    para eu na  faixa (comprimento):
+        insertion_sort (baldes [i])
+ 
+    resultado = []
+    para eu na  faixa (comprimento):
+        resultado = resultado + baldes [i]
+ 
+    resultado de retorno
+ 
+def  inserção_sort ( alist ):
+    para i no  intervalo ( 1 , len (alist)):
+        temp = alist [i]
+        j = i -  1
+        while (j > =  0  e temp < alist [j]):
+            alist [j +  1 ] = alist [j]
+            j = j -  1
+        alist [j +  1 ] = temp
+
+lista =  list (it.permutations ([ 1 , 2 , 3 , 4 , 5 , 6 ], 6 ))
+listaAux = []
+listaPermut = []
+
+para eu na lista:
+    listaAux.append ( lista (i))
+    listaPermut.append ( lista (i))
+
+tempos = []
+
+
+para i em listaPermut:
+    tempos.append (timeit.timeit ( ' bucketSort ( {} ) ' .format (i), setup = " de __main__ import bucketSort " , número = 50 ))
+
+maxIdx = tempos.index ( max (tempos))
+minIdx = tempos.index ( min (tempos))
+
+print ( ' Pior caso: ' , listaAux [maxIdx])
+print ( ' Melhor caso: ' , listaAux [minIdx])
