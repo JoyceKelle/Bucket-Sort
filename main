@@ -1,0 +1,77 @@
+importação aleatória
+importar timeit
+import matplotlib as mpl
+import matplotlib.pyplot como plt
+
+def  desenhaGrafico ( x , y , graphLabel , nomeArquivo , XL  =  " Quantidade de Números " , il  =  " Tempo " ):
+    fig = plt.figure ( figsize = ( 10 , 8 ))
+    ax = fig.add_subplot ( 111 )
+    para eu na  faixa ( 3 ):
+        ax.plot (x, y [i], rótulo  = graphLabel [i])
+    ax.legend ( bbox_to_anchor = ( 1 , 1 ), bbox_transform = plt.gcf (). transFigura)
+    plt.ylabel (yl)
+    plt.xlabel (xl)
+    fig.savefig (fileName)
+
+def  geraListaInvertida ( tam ):
+    lista = []
+    enquanto tam >  0 :
+        lista.append (tam)
+        tam - = 1
+    return lista
+
+def  geraListaOrdenada ( tam ):
+    lista = []
+    para eu na  faixa (tam):
+        lista.append (i)
+    return lista
+
+def  bucketSort ( alist ):
+    maior =  max (alist)
+    comprimento =  len (alist)
+    tamanho = maior / comprimento
+ 
+    buckets = [[] para _ no  intervalo (comprimento)]
+    para eu na  faixa (comprimento):
+        j =  int (alist [i] / tamanho)
+        se j ! = comprimento:
+            baldes [j] .append (alist [i])
+        else :
+            baldes [comprimento -  1 ] .append (alist [i])
+ 
+    para eu na  faixa (comprimento):
+        insertion_sort (baldes [i])
+ 
+    resultado = []
+    para eu na  faixa (comprimento):
+        resultado = resultado + baldes [i]
+ 
+    resultado de retorno
+ 
+def  inserção_sort ( alist ):
+    para i no  intervalo ( 1 , len (alist)):
+        temp = alist [i]
+        j = i -  1
+        while (j > =  0  e temp < alist [j]):
+            alist [j +  1 ] = alist [j]
+            j = j -  1
+        alist [j +  1 ] = temp
+
+
+x = [ 10000 , 20000 , 30000 , 40000 , 50000 ]
+yMelhorCaso = []
+yMedioCaso = []
+yPiorCaso = []
+
+para i em x:
+    yMelhorCaso.append (timeit.timeit ( " bucketSort ( {} ) " .format (geraListaOrdenada (i)), setup = " de __main__ import bucketSort " , número = 1 ))
+    
+    lista = geraListaOrdenada (i)
+    random.shuffle (geraListaOrdenada (i))
+    yMedioCaso.append (timeit.timeit ( " bucketSort ( {} ) " .format (lista), setup = " from __main__ import bucketSort " , número = 1 ))
+
+    yPiorCaso.append (timeit.timeit ( " bucketSort ( {} ) " .format (geraListaInvertida (i)), setup = " de __main__ import bucketSort " , número = 1 ))
+
+cases = [yMelhorCaso, yMedioCaso, yPiorCaso]
+casosLabel = [ ' Melhor caso ' , ' Medio caso ' , ' Pior caso ' ]
+desenhaGrafico (x, cases, casesLabel, ' BucketSortCasos.png ' )
